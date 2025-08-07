@@ -1,9 +1,3 @@
-# バイナリファイル
-github-project-notifier
-github-project-notifier-*
-*.exe
-dist/
-
 # 設定ファイル
 .env
 
