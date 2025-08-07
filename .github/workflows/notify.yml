@@ -1,0 +1,56 @@
+name: GitHub Project Notifier
+
+on:
+  schedule:
+    # 平日（月-金）の8時、12時、15時（JST）に実行
+    # GitHub Actionsは UTC時間で動作するため、JST -9時間で設定
+    # JST 8:00 -> UTC 23:00 (前日)
+    - cron: '0 23 * * 0-4'
+    # JST 12:00 -> UTC 3:00
+    - cron: '0 3 * * 1-5'
+    # JST 15:00 -> UTC 6:00
+    - cron: '0 6 * * 1-5'
+  
+  # 手動実行も可能にする
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        
+    - name: Cache Go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+          
+    - name: Download dependencies
+      run: go mod download
+      
+    - name: Build application
+      run: go build -o github-project-notifier main.go
+      
+    - name: Run notification
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROJECT_OWNER: ${{ secrets.PROJECT_OWNER }}
+        PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
+        PROJECT_VIEW_NUMBER: ${{ secrets.PROJECT_VIEW_NUMBER }}
+        MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+        TARGET_STATUS: ${{ secrets.TARGET_STATUS }}
+        STATUS_FIELD_NAME: ${{ secrets.STATUS_FIELD_NAME }}
+        INSECURE_SKIP_VERIFY: ${{ secrets.INSECURE_SKIP_VERIFY }}
+      run: ./github-project-notifier
