@@ -1,0 +1,24 @@
+# バイナリファイル
+github-project-notifier
+github-project-notifier-*
+*.exe
+dist/
+
+# 設定ファイル
+.env
+
+# Goのビルドキャッシュとテンポラリファイル
+# go.sum は依存関係の整合性のためにバージョン管理に含める
+
+# ログファイル
+*.log
+
+# IDEファイル
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS依存ファイル
+.DS_Store
+Thumbs.db
