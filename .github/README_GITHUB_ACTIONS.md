@@ -10,9 +10,9 @@
 
 ## 必要な環境変数の設定
 
-GitHubリポジトリの Settings → Secrets and variables → Actions で以下のシークレットを設定してください：
+GitHubリポジトリの Settings → Secrets and variables → Actions で以下の設定を行ってください：
 
-### 必須設定
+### Variables（Variables タブで設定）
 
 | 名前 | 説明 | 例 |
 |------|------|-----|
@@ -20,7 +20,7 @@ GitHubリポジトリの Settings → Secrets and variables → Actions で以�
 | `PROJECT_NUMBER` | プロジェクト番号 | `1` |
 | `MATTERMOST_WEBHOOK_URL` | MattermostのWebhook URL | `https://your-mattermost.com/hooks/xxx` |
 
-### オプション設定
+### オプション Variables
 
 | 名前 | 説明 | デフォルト値 |
 |------|------|-------------|
@@ -29,10 +29,23 @@ GitHubリポジトリの Settings → Secrets and variables → Actions で以�
 | `STATUS_FIELD_NAME` | ステータスフィールド名 | `Status` |
 | `INSECURE_SKIP_VERIFY` | SSL証明書検証をスキップ | `false` |
 
+### Secrets（Secrets タブで設定）
+
+| 名前 | 説明 |
+|------|------|
+| `GITHUB_TOKEN` | GitHubトークン（通常は自動提供、プライベートプロジェクトの場合のみ設定） |
+
 ## GitHub Token について
 
 `GITHUB_TOKEN` は GitHub Actions で自動的に提供されるため、通常は手動設定不要です。
 ただし、プライベートリポジトリのプロジェクトにアクセスする場合は、適切な権限を持つPersonal Access Tokenを `GITHUB_TOKEN` として設定してください。
+
+## 設定手順
+
+1. GitHubリポジトリページで **Settings** をクリック
+2. 左サイドバーの **Secrets and variables** → **Actions** をクリック
+3. **Variables** タブで上記のVariablesを設定
+4. 必要に応じて **Secrets** タブで `GITHUB_TOKEN` を設定
 
 ## 手動実行
 

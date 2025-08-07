@@ -46,11 +46,11 @@ jobs:
     - name: Run notification
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PROJECT_OWNER: ${{ secrets.PROJECT_OWNER }}
-        PROJECT_NUMBER: ${{ secrets.PROJECT_NUMBER }}
-        PROJECT_VIEW_NUMBER: ${{ secrets.PROJECT_VIEW_NUMBER }}
-        MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-        TARGET_STATUS: ${{ secrets.TARGET_STATUS }}
-        STATUS_FIELD_NAME: ${{ secrets.STATUS_FIELD_NAME }}
-        INSECURE_SKIP_VERIFY: ${{ secrets.INSECURE_SKIP_VERIFY }}
+        PROJECT_OWNER: ${{ vars.PROJECT_OWNER }}
+        PROJECT_NUMBER: ${{ vars.PROJECT_NUMBER }}
+        PROJECT_VIEW_NUMBER: ${{ vars.PROJECT_VIEW_NUMBER }}
+        MATTERMOST_WEBHOOK_URL: ${{ vars.MATTERMOST_WEBHOOK_URL }}
+        TARGET_STATUS: ${{ vars.TARGET_STATUS }}
+        STATUS_FIELD_NAME: ${{ vars.STATUS_FIELD_NAME }}
+        INSECURE_SKIP_VERIFY: ${{ vars.INSECURE_SKIP_VERIFY }}
       run: ./github-project-notifier
