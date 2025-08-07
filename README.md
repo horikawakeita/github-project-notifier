@@ -11,6 +11,58 @@ GitHub ProjectV2の「In review」ステータスのアイテムを取得し、M
 - 複数のプロジェクトアイテムタイプに対応（Issue、PullRequest、DraftIssue）
 - 環境依存のない実行ファイルの生成
 
+## 最短実行手順
+
+すぐに使い始めたい場合の手順です（詳細な設定は下記の各セクションを参照）：
+
+### 1. 実行ファイルのダウンロード
+
+OS別のビルド済み実行ファイルが`dist/`ディレクトリに用意されています：
+
+- **Linux**: `dist/github-project-notifier-linux`
+- **macOS (Intel)**: `dist/github-project-notifier-macos-intel`
+- **macOS (Apple Silicon)**: `dist/github-project-notifier-macos-arm64`
+- **Windows**: `dist/github-project-notifier.exe`
+
+### 2. GitHub CLI で認証
+
+```bash
+# GitHub CLI をインストール（未インストールの場合）
+brew install gh  # macOS
+# または sudo apt install gh  # Linux
+# または winget install --id GitHub.cli  # Windows
+
+# GitHub にログイン
+gh auth login
+```
+
+### 3. 設定ファイルの作成
+
+```bash
+# 設定例をコピー
+cp config.env.example .env
+
+# .env を編集（最低限必要な設定）
+PROJECT_OWNER=your-organization-or-username
+PROJECT_NUMBER=1
+MATTERMOST_WEBHOOK_URL=https://your-mattermost.com/hooks/xxxxxxxx
+```
+
+### 4. 実行
+
+```bash
+# Linux/macOS の場合
+chmod +x dist/github-project-notifier-linux  # または適切なファイル名
+./dist/github-project-notifier-linux
+
+# Windows の場合
+.\dist\github-project-notifier.exe
+```
+
+以上で完了です！レビュー待ちのアイテムがある場合、Mattermostに通知が送信されます。
+
+---
+
 ## 必要な準備
 
 ### 1. GitHub CLI (gh) のインストールと認証
