@@ -192,9 +192,17 @@ GOOS=darwin GOARCH=amd64 go build -o github-project-notifier-macos main.go
 ### cron での設定例
 
 ```bash
-# 毎日午前9時に実行
-0 9 * * * /path/to/github-project-notifier
+# 毎日午前9時に実行（.envファイルを正しく読み込むためcdコマンドを使用）
+0 9 * * * cd /path/to/github-project-notifier && ./dist/github-project-notifier
+
+# 複数回実行の例（平日の8時、12時、15時）
+0 8,12,15 * * 1-5 cd /path/to/github-project-notifier && ./dist/github-project-notifier
+
+# ログを出力しない場合
+0 9 * * * cd /path/to/github-project-notifier && ./dist/github-project-notifier > /dev/null 2>&1
 ```
+
+**重要**: cronで実行する際は、必ず `cd` コマンドでプロジェクトディレクトリに移動してから実行してください。これにより `.env` ファイルが正しく読み込まれます。
 
 ### GitHub Actions での設定例
 
